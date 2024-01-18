@@ -10,9 +10,9 @@ My first Full Stack project
 
 3. Create a .gitignore file at the same location, and add 'node_modules' without the quotations to this file, this ensures that we aren't pushing our node_modules to the repository, and push the code up.
 
-4. Congratulations! You've setup a git repository with all the desired files, from here on out, all changes in code you make will be kept in sync on remote. Feel free to either do your work in the main branch or have different branches for different tasks.  If anything at this point is broken, and you're unsure of how to fix it, please come to Lab or Office Hours. It is essential that the github repo is setup correctly at this stage of this extended assignment.
+4. ~Congratulations! You've setup a git repository with all the desired files, from here on out, all changes in code you make will be kept in sync on remote. Feel free to either do your work in the main branch or have different branches for different tasks.  If anything at this point is broken, and you're unsure of how to fix it, please come to Lab or Office Hours. It is essential that the github repo is setup correctly at this stage of this extended assignment.~
 
-5. Open a terminal and type npm install to install all necessary package.
+5. ~Open a terminal and type npm install to install all necessary package.~
 
 6. Open the server.js file, this is our starting point, and we've provided some starter code.
 
