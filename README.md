@@ -4,7 +4,7 @@ My first Full Stack project
 
 ## Task
 
-1. ### (DONE) Create a github repository titled 'miniproject' without the quotations, feel free to add a README.md, and clone this repository to wherever you desire.
+1. ~~(DONE) Create a github repository titled 'miniproject' without the quotations, feel free to add a README.md, and clone this repository to wherever you desire.~~
 
 2. Download the miniproject_part1 zip Download miniproject_part1 zip, and extract the contents, adding the following contents: server.js, requests, and package.json to your local miniproject.
 
