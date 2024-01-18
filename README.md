@@ -4,9 +4,9 @@ My first Full Stack project
 
 ## Task
 
-1. ~~(DONE) Create a github repository titled 'miniproject' without the quotations, feel free to add a README.md, and clone this repository to wherever you desire.~~
+1. ~~Create a github repository titled 'miniproject' without the quotations, feel free to add a README.md, and clone this repository to wherever you desire.~~
 
-2. Download the miniproject_part1 zip Download miniproject_part1 zip, and extract the contents, adding the following contents: server.js, requests, and package.json to your local miniproject.
+2. ~~Download the miniproject_part1 zip Download miniproject_part1 zip, and extract the contents, adding the following contents: server.js, requests, and package.json to your local miniproject.~~
 
 3. Create a .gitignore file at the same location, and add 'node_modules' without the quotations to this file, this ensures that we aren't pushing our node_modules to the repository, and push the code up.
 
