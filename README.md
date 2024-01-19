@@ -14,11 +14,12 @@ My first Full Stack project
 
 5. ~Open a terminal and type npm install to install all necessary package.~
 
-6. Open the server.js file, this is our starting point, and we've provided some starter code.
+6. ~Open the server.js file, this is our starting point, and we've provided some starter code.~
 
-7. Carefully read all the comments next to the code, especially the one on data storage as well as the various TODOs that describe what each endpoint is doing in terms of what it receives as a request and the intended response.
+7. ~Carefully read all the comments next to the code, especially the one on data storage as well as the various TODOs that describe what each endpoint is doing in terms of what it receives as a request and the intended response.~
 
-8. Note: we added a requests folder, within which we have a test.rest file, that you can use as a starting point for testing your endpoints. Confirm that when the server is running (using the command npm run start), you're getting the expected response when you send this request.
+8. ~Note: we added a requests folder, within which we have a test.rest file, that you can use as a starting point for testing your endpoints. Confirm that when the server is running (using the command npm run start), you're getting the expected response when you send this request.~
+
 9. Implement the endpoints. The order in which we strongly recommend completing the TODOs is: GET, GET:id, POST, PUT, DELETE:id. Since the GET endpoint is completed first, you can then test if resource creation and deletion is working adequately.
     - Hint: when modifying the currencies, please do not directly modify the data, but instead create a copy that has the desired changes (look into functions like concat, filter, etc.)
     - Hint: making changes and saving them when running the server in node requires a restart of the server to reflect those changes. Look into how we avoided this with nodemon. 
