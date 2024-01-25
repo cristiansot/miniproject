@@ -1,1 +1,7 @@
 GET http://localhost:3001/api/currency/
+###
+POST http://localhost:3001/api/currency/
+###
+PUT http://localhost:3001/api/currency/
+###
+DELETE http://localhost:3001/api/currency/
