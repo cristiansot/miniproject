@@ -33,6 +33,12 @@ let currencies = [
     currencyCode: "USD",
     country: "United States of America",
     conversionRate: 0.75
+  },
+  {
+    id: 3,
+    currencyCode: "CLP",
+    country: "Chile",
+    conversionRate: 152
   }
 ]
 
@@ -100,7 +106,11 @@ app.put('...', (request, response) => {
  * @receives a delete request to the URL: http://localhost:3001/api/currency/:id,
  * @responds by returning a status code of 204
  */
-app.post('...', (request, response) => {
+app.delete('/api/currency/del/:id', (request, response) => {
+  const id = Number(request.params.id);
+  const currencyDel = currencies.filter(currencyId => currencyId.id != id);
+ 
+  response.json(currencyDel);
 })
 
 const PORT = 3001
