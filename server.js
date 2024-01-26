@@ -81,15 +81,16 @@ app.get('/api/currency/:id', (request, response) => {
  * with data object enclosed
  * @responds by returning the newly created resource
  */
-// app.post('...', (request, response) => {
-//   console.log("Recived POST req")
-//   const newCurrencie = {
-//     id: gerateId(),
-//     currencyCode: "",
-//     country: "",
-//     conversionRate: "",
-//   }
-// })
+app.post('/api/currency/', (request, response) => {
+  console.log("Recived POST req")
+  const newCurrencie = {
+    id: 4,
+    currencyCode: "AFN",
+    country: "Afghanistan",
+    conversionRate: "971",
+  }
+  response.json(newCurrencie);
+})
 
 /**
  * TODO: PUT:id endpoint
@@ -98,7 +99,7 @@ app.get('/api/currency/:id', (request, response) => {
  * Hint: updates the currency with the new conversion rate
  * @responds by returning the newly updated resource
  */
-app.put('...', (request, response) => {
+app.put('/api/currency/', (request, response) => {
 })
 
 /**
