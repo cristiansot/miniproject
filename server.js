@@ -47,18 +47,18 @@ let currencies = [
  * @receives a get request to the URL: http://localhost:3001/
  * @responds with the string 'Hello World!'
  */
-// app.get('/', (request, response) => {
-//   response.json('Hello world') // Done
-// })
+app.get('/', (request, response) => {
+  response.json('Hello world') // Done
+})
 
 /**
  * TODO: GET Endpoint 
  * @receives a get request to the URL: http://localhost:3001/api/currency/
  * @responds with returning the data as a JSON
  */
-// app.get('/api/currency/', (request, response) => {
-//   response.json(currencies)
-// })
+app.get('/api/currency/', (request, response) => {
+  response.json(currencies)
+})
 
 /**
  * TODO: GET:id Endpoint
@@ -69,7 +69,7 @@ app.get('/api/currency/:id', (request, response) => {
   const id = Number(request.params.id);
   const currencyId = currencies.find(currencyId => currencyId.id === id); 
   if (!id) {
-    response.status(404).send("Currency not found");
+    response.status(404).json({ error: 'resource not found' });
   } else {
     response.json(currencyId);
   }
@@ -82,14 +82,17 @@ app.get('/api/currency/:id', (request, response) => {
  * @responds by returning the newly created resource
  */
 app.post('/api/currency/', (request, response) => {
-  console.log("Recived POST req")
   const newCurrencie = {
     id: 4,
     currencyCode: "AFN",
     country: "Afghanistan",
     conversionRate: "971",
   }
-  response.json(newCurrencie);
+  if (newCurrencie.id != 4) {
+    response.status(404).json({ error: 'content missing' });
+  } else {
+    response.json(newCurrencie);
+  }
 })
 
 /**
@@ -100,6 +103,7 @@ app.post('/api/currency/', (request, response) => {
  * @responds by returning the newly updated resource
  */
 app.put('/api/currency/', (request, response) => {
+  response.send('Put information')
 })
 
 /**
