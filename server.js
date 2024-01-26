@@ -1,7 +1,6 @@
 const express = require('express')  // We import the express application
 const cors = require('cors') // Necessary for localhost
 const app = express(); // Creates an express application in app
-// import { currencies } from './currencies.js';
 
 /**
  * Initial application setup
@@ -42,6 +41,12 @@ let currencies = [
   }
 ]
 
+/* Middleware */
+app.use((request, response, next) => {
+  console.log(`Incoming request: ${request.method} ${request.url}`);
+  next();
+})
+
 /**
  * TESTING Endpoint (Completed)
  * @receives a get request to the URL: http://localhost:3001/
@@ -68,11 +73,12 @@ app.get('/api/currency/', (request, response) => {
 app.get('/api/currency/:id', (request, response) => {
   const id = Number(request.params.id);
   const currencyId = currencies.find(currencyId => currencyId.id === id); 
-  if (!id) {
-    response.status(404).json({ error: 'resource not found' });
-  } else {
+
+  if (currencyId) { 
     response.json(currencyId);
-  }
+  } else if (currencyId !== id){
+    response.status(404).json({ error: 'Resource not found' });
+  } 
 })
 
 /**
@@ -88,6 +94,7 @@ app.post('/api/currency/', (request, response) => {
     country: "Afghanistan",
     conversionRate: "971",
   }
+
   if (newCurrencie.id != 4) {
     response.status(404).json({ error: 'content missing' });
   } else {
@@ -102,8 +109,14 @@ app.post('/api/currency/', (request, response) => {
  * Hint: updates the currency with the new conversion rate
  * @responds by returning the newly updated resource
  */
-app.put('/api/currency/', (request, response) => {
-  response.send('Put information')
+app.put('/api/currency/:id/:newRate', (request, response) => {
+  const newRate = {
+    id: 5,
+    currencyCode: "GNF",
+    country: "Guinea",
+    conversionRate: "324",
+  }
+  response.json(newRate);
 })
 
 /**
@@ -116,6 +129,12 @@ app.delete('/api/currency/del/:id', (request, response) => {
   const currencyDel = currencies.filter(currencyId => currencyId.id != id);
  
   response.json(currencyDel);
+})
+
+/* Middleware for unknown endpoint */
+app.use((request, response, next) => {
+  console.log('Unknown endpoint')
+  response.send({ error: 'Unknown endpoint' })
 })
 
 const PORT = 3001
