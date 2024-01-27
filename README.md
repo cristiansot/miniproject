@@ -1,37 +1,33 @@
 # miniproject
 My first Full Stack project
 
-## Task
+# Mini-Project Part 1 Done
 
-1. ~~Create a github repository titled 'miniproject' without the quotations, feel free to add a README.md, and clone this repository to wherever you desire.~~
+# Mini-Project Part 2 In progress
 
-2. ~~Download the miniproject_part1 zip Download miniproject_part1 zip, and extract the contents, adding the following contents: server.js, requests, and package.json to your local miniproject.~~
+## Instructions
 
-3. Create a .gitignore file at the same location, and add 'node_modules' without the quotations to this file, this ensures that we aren't pushing our node_modules to the repository, and push the code up.
+Please read the instructions below carefully, and do not hesitate to attend Lab or Office hours to ask questions if anything is unclear. 
+Please create a new Git branch and call it "assignment 2" and do this assignment there.
+1. Create a PostgreSQL db server on RenderLinks to an external site. and note the environment variables under the "Connections" tab.
 
-4. ~Congratulations! You've setup a git repository with all the desired files, from here on out, all changes in code you make will be kept in sync on remote. Feel free to either do your work in the main branch or have different branches for different tasks.  If anything at this point is broken, and you're unsure of how to fix it, please come to Lab or Office Hours. It is essential that the github repo is setup correctly at this stage of this extended assignment.~
+2. Download pgAdmin 4Links to an external site.  and connect it with your Render PostgreSQL db using the environment variables from step 1. Important Note: since we are connecting from an external location, then we need to use the "External Database URL" to extract the hostname in order for using it in the pgAdmin connection. In "External Database URL" variable the db hostname is located after the "@" symbol and ends with "render.com". After you connect successfully, you should be able to view your database on the left navigation bar of pgAdmin. 
 
-5. ~Open a terminal and type npm install to install all necessary package.~
+3. In your express server, create a .env file (if not already created) and add the Postgres db variables from step 1. You need to add and save the following variables: db hostname (as explained in step 2), db port, username, password, and db name. 
 
-6. ~Open the server.js file, this is our starting point, and we've provided some starter code.~
+4. Install Sequelize Object-Relational Mapper and pg Postgres driver node modules. Create a config file and initialize a configuration for Sequelize with your Postgres db variables. Refer to the documentationLinks to an external site. to see how that is done in Sequelize.
+5. Create two models in the "models" folder: one for the Currency resource available from the previous assignment, however, now it should contain the following attributes: { id, currencyCode, countryId, conversionRate }. Note that we replaced country with countryId from the original starter code.
 
-7. ~Carefully read all the comments next to the code, especially the one on data storage as well as the various TODOs that describe what each endpoint is doing in terms of what it receives as a request and the intended response.~
+6. The second model is for the Country resource which consists of: { id, name }. Refer to "Column Options" sections in the documentationLinks to an external site. to see how we can define primary keys and foreign keys in Sequelize. id is a primary key in both tables, and countryId is a foreign key in Currency table referring to id in Country table.
 
-8. ~Note: we added a requests folder, within which we have a test.rest file, that you can use as a starting point for testing your endpoints. Confirm that when the server is running (using the command npm run start), you're getting the expected response when you send this request.~
+7. Add the Currency model to the Currency route that you created in the first assignment. Remove the currencies array and update your endpoints logic with Sequelize Currency model. Use the built-in functions provided by Sequelize.
 
-9. ~Implement the endpoints. The order in which we strongly recommend completing the TODOs is: GET, GET:id, POST, PUT, DELETE:id. Since the GET endpoint is completed first, you can then test if resource creation and deletion is working adequately.
-    ~- Hint: when modifying the currencies, please do not directly modify the data, but instead create a copy that has the desired changes (look into functions like concat, filter, etc.)
-    ~- Hint: making changes and saving them when running the server in node requires a restart of the server to reflect those changes. Look into how we avoided this with nodemon. ~
+8. Similarly, create a new route for the Country resource using the Country model. Create GET, POST, and DELETE endpoints using Sequelize functions to query the database. GET: retrieve all records, POST: add a new a record, DELETE: remove one record.
 
-10. ~Add error handling for the GET:id and POST endpoints
-    - In the GET:id case, we want to return a 404 status code with the response object { error: 'resource not found' } if the currency is not found in our data. 
-    - In the POST case, if any required information needed to create the currency object is missing, please return a 400 status code with the response object { error: 'content missing' }~
+9. Use Sequelize functions to add an association (one-to-one) in Currency model (similar to the first line hereLinks to an external site.) where each currency should belong to one country. You should also pass the foreign key, that you have already defined, in this association. Associations in Sequelize equal to relations in SQL databases.
 
-11. ~Add an unknown endpoint that can basically handle any other route. This unknown endpoint should return a 404 status code with the response object { error: 'unknown endpoint }~
+10. Test your connection by adding, retrieving and deleting currencies and countries using HTTP requests sent to the express server from Postman or REST Client. 
 
-12. ~Incorporate morgan middleware, so we can see some information about the requests being sent. Here's a linkLinks to an external site. for more information.
-    - Below is an example of what it might look like (this is an example from a different project but we want a similar message logged to the console). In this example, which we show as a reference a POST request is being sent to http://localhost:3001/api/notes and the following is logged:
-    - POST /api/persons 200 61 - 4.5ms { "content": "My first note!" }
-    - The information is as follows: Request Type, URL, Status code, Response content length, Response time, Request content being sent~
+11. Create a new file (a route) inside the "routes" folder and create one GET endpoint for the route "/currency-countryName". The endpoint should retrieve the currency code from the currency model and the country name from the country model. You should make a query on the currency model and include the country model (similar to the second line hereLinks to an external site.).
 
-13. ~Convert the working setup you have to now make use of Express Router, as seen in lecture (Hint: you will have a routes directory). Also, please abstract your middleware to a separate utils directory.~
+12. Test your endpoint by sending a GET request to "/currency-countryName". The response should consist of pairs of { currencyCode, countryName }. You can modify the shape of your response in the endpoint logic. Additionally, You can use pgAdmin QueryTool to write an SQL  JOIN query to test your results as shown in the image below
