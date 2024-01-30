@@ -2,8 +2,10 @@ const express = require('express')
 const cors = require('cors') 
 const app = express(); 
 const morgan = require ('morgan');
-const { Sequelize } = require('sequelize');
 require("dotenv").config();
+const pg = require('pg')
+
+const sequelize = require ('./config/sequelize')
 
 app.use(cors())
 app.use(express.json())
@@ -11,7 +13,7 @@ app.use(express.json())
 const connect = async () => {
 
   try{
-    await Sequelize.authenticate();
+    await sequelize.authenticate();
     console.log("DB online")
     
   }catch(error) {
@@ -27,7 +29,7 @@ app.use(morgan('tiny'))
 /* Router */
 app.use(require('./routes/endpoints'));
 
-const PORT = 3001
+const PORT = process.env.PORT
 app.listen(PORT, () => {
   console.log(`Server running on port: ${PORT}`)
 }) 
