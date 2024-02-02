@@ -4,11 +4,11 @@ const app = express();
 const morgan = require ('morgan');
 require("dotenv").config();
 const sequelize = require ('./config/sequelize');
-const currency = require('./models/currency');
-const country = require('./models/country');
 
 app.use(cors())
 app.use(express.json())
+app.use(morgan('tiny'))
+app.use(require('./routes/currencyRoute'));
 
 const connect = async () => {
 
@@ -21,12 +21,6 @@ const connect = async () => {
   }
 }
 connect();
-
-/* Middleware */
-app.use(morgan('tiny'))
-
-/* Router */
-app.use(require('./routes/endpoints'));
 
 const PORT = process.env.PORT
 sequelize

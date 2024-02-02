@@ -6,7 +6,7 @@ const currency = sequelize.define('currency', {
     type: DataTypes.INTEGER, 
     primaryKey: true,
   },
-  currecnyCode: {
+  currencyCode: {
     type: DataTypes.INTEGER,
     allowNull: false
   },
@@ -19,6 +19,5 @@ const currency = sequelize.define('currency', {
     allowNull: false
   }
 })
-
 
 module.exports = currency;
