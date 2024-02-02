@@ -1,9 +1,14 @@
 const { Router } = require('express');
 const router = Router();
-const currency = require('../models/currency')
+const currency = require('../models/currency');
+const country = require('../models/country')
 
-
-router.get('/', async(req, res) => {
+/* This code is defining a GET route for '/currency/'. When a GET request is made to this route, it
+will execute the `currency.findAll()` function, which is likely a function that retrieves all
+currency data from a database. The retrieved currency data is then sent as a response using
+`res.send(currency)`. If there is an error during the retrieval process, it will be caught and
+logged to the console using `console.log(error)`. */
+router.get('/currency/', async(req, res) => {
   currency.findAll()
   .then((currency) => {
     res.send(currency);
@@ -12,30 +17,20 @@ router.get('/', async(req, res) => {
     console.log(error);
   });
 })
-  
 
-// router.get('/api/currency/:id', (request, response) => {
-// 	const id = Number(request.params.id);
-// 	const currencyId = currencies.find(currencyId => currencyId.id === id); 
-
-// 	if (currencyId) { 
-// 		response.json(currencyId);
-// 	} else if (currencyId !== id){
-// 		response.status(404).json({ error: 'Resource not found' });
-// 	} 
-// })
   
-// currencyRouter.post('/', (request, response) => {
-// 	Currency.create({
+// router.post('/currency/', (req, res) => {
+// 	currency.create({
 // 		id: 4,
 // 		currencyCode: "AFN",
+//     countryId: 22,
 // 		convertionRate: "971",
 //   }).catch((error) => {
 //     if (error) {
 //       console.log(error);
 //     }
 //   });
-//   response.json(Currency);
+//   res.send(Currency);
 // });
 
 // 	if (newCurrencie.id != 4) {
