@@ -1,11 +1,12 @@
 const sequelize = require('../config/sequelize');
 const { DataTypes } = require('sequelize');
-// const country = require('./country')
+const country = require('../models/country');
 
 const currency = sequelize.define('currency', {
   id: {
     type: DataTypes.INTEGER, 
     primaryKey: true,
+    autoIncrement: true,
   },
   currencyCode: {
     type: DataTypes.STRING,
@@ -13,10 +14,7 @@ const currency = sequelize.define('currency', {
   },
   countryId: {
     type: DataTypes.INTEGER,
-    // references: {
-    //   model: country,
-    //   key: "id",
-    // },
+    allowNull: false
   },
   convertionRate: {
     type: DataTypes.INTEGER,
@@ -24,6 +22,14 @@ const currency = sequelize.define('currency', {
   }
 })
 
-// currency.belongsTo(country, { foreignKey: "country_id" });
+currency.hasMany(country, {
+  foreignKey: 'currencyId',
+  sourceKey: 'id'
+})
+
+country.belongsTo(currency, {
+  foreignKey: 'currencyId',
+  targetId: 'id'
+})
 
 module.exports = currency;

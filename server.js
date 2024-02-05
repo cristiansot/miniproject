@@ -10,6 +10,7 @@ app.use(express.json())
 app.use(morgan('tiny'))
 app.use(require('./routes/currencyRoute'));
 
+
 const connect = async () => {
 
   try{
@@ -20,11 +21,12 @@ const connect = async () => {
     console.log('No connected')
   }
 }
+
 connect();
 
 const PORT = process.env.PORT
 sequelize
-  .sync({ alter: true })
+  .sync({ force: true })
   .then(() => {
     console.log('DB is Sync')
     app.listen(PORT, () => {
