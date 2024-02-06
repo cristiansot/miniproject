@@ -9,16 +9,16 @@ app.use(cors())
 app.use(express.json())
 app.use(morgan('tiny'))
 app.use(require('./routes/currencyRoute'));
-
+app.use(require('./routes/countryRoute'));
 
 const connect = async () => {
 
   try{
     await sequelize.authenticate();
-    console.log("DB Online")
+    console.log("Database Online")
     
   }catch(error) {
-    console.log('No connected')
+    console.log('Database not connected')
   }
 }
 

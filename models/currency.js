@@ -14,7 +14,11 @@ const currency = sequelize.define('currency', {
   },
   countryId: {
     type: DataTypes.INTEGER,
-    allowNull: false
+    allowNull: false,
+    references: {
+      model: country,
+      key: "id"
+    }
   },
   convertionRate: {
     type: DataTypes.INTEGER,
@@ -22,14 +26,8 @@ const currency = sequelize.define('currency', {
   }
 })
 
-currency.hasMany(country, {
-  foreignKey: 'currencyId',
-  sourceKey: 'id'
-})
-
-country.belongsTo(currency, {
-  foreignKey: 'currencyId',
-  targetId: 'id'
+currency.belongsTo(country, {
+  foreignKey: 'currencyId'
 })
 
 module.exports = currency;

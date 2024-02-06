@@ -58,15 +58,21 @@ router.put('/currency/:id', async (req, res) => {
   
 router.delete('/currency/:id', async (req, res) => {
   const id = req.params.id;
-
+  
   try {
-    await Currency.destroy({ where: { id: id } });
-    res.send('Currency deleted successfully');
+    const deleteCurrency = await Currency.findByPk(id);
+    if (deleteCurrency) {
+      await deleteCurrency.destroy()
+      .then((deletedItem) => {
+        res.status(204).json(deletedItem);
+      });
+    } else {
+      res.status(404).send('Item not exist');
+    }
   } catch (error) {
     console.log('Error deleting currency:', error);
     return res.status(500).json({ message: error.message });
   }
 });
 
-  
 module.exports = router;
