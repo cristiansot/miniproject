@@ -43,11 +43,12 @@ router.get('/api/currency/:id', (request, response) => {
   
 router.post('/api/currency/', (request, response) => {
 	const newCurrencie = {
-		id: 4,
-		currencyCode: "AFN",
-		country: "Afghanistan",
-		conversionRate: "971",
+		// id: 4,
+		// currencyCode: "AFN",
+		// country: "Afghanistan",
+		// conversionRate: "971",
 	}
+	
 
 	if (newCurrencie.id != 4) {
 		response.status(404).json({ error: 'content missing' });
