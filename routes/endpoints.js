@@ -42,17 +42,17 @@ router.get('/api/currency/:id', (req, res) => {
 })
 
 router.post('/api/currency/', (req, res) => {
-  try {
-    const newCurrencies =  req.body;
-    newCurrencies.id = currencies.length + 1,
-    currencies.push(newCurrencies);
-    res.status(201).json(newCurrencies);
-    console.log('Currency created');
-  } catch (error){
-    res.status(500).json({ message: error.message});
+  const newCurrency = req.body;
+  const isDuplicateId = currencies.some(currency => currency.id === newCurrency.id);
+  if (isDuplicateId) {
+      res.status(400).json({ message: "This ID exist"});
+  } else {
+    newCurrency.id = currencies.length + 1;
+    currencies.push(newCurrency);
+    res.status(201).json(newCurrency);
+    console.log('Moneda creada exitosamente.');
   }
 });
-
 
 router.put('/api/currency/:id', (req, res) => {
   const id = Number(req.params.id);
