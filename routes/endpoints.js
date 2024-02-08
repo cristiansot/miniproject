@@ -33,8 +33,7 @@ router.get('/api/currency/', (req, res) => {
   
 router.get('/api/currency/:id', (req, res) => {
 	const id = Number(req.params.id);
-	const currencyId = currencies.find(x => x.id === id); 
-
+	const currencyId = currencies.find(currency => currency.id === id); 
 	if (currencyId) { 
 		res.json(currencyId);
 	} else if (currencyId !== id){
@@ -50,25 +49,27 @@ router.post('/api/currency/', (req, res) => {
     res.status(201).json(newCurrencies);
     console.log('Currency created');
   } catch (error){
-    res.status(500).json({ message: error.message})  }
+    res.status(500).json({ message: error.message});
+  }
 });
 
-router.put('/api/currency/:id/:newRate', (request, response) => {
-  const id = Number(req.params.id);
 
-	const newRate = {
-		id: 5,
-		currencyCode: "GNF",
-		country: "Guinea",
-		conversionRate: "324",
-	}
-	response.json(newRate);
-})
+router.put('/api/currency/:id', (req, res) => {
+  const id = Number(req.params.id);
+  const newRate = currencies.find(currency => currency.id === id);
+  if (newRate) {
+    newRate.currencyCode = req.body.currencyCode;
+    newRate.country = req.body.country;
+    newRate.conversionRate = req.body.conversionRate;
+    res.status(201).json(newRate);
+  } else {
+    res.sendStatus(500).json({ message: error.message});
+  }
+});
 
 router.delete('/api/currency/:id', (req, res) => {
 	const id = Number(req.params.id);
 	const initialLength = currencies.length;
-
 	currencies = currencies.filter(currency => currency.id !== id);
 	if (currencies.length < initialLength) {
 	  console.log('Currency deleted');
