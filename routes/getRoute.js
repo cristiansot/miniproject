@@ -3,6 +3,8 @@ const router = Router();
 const Currency = require('../models/currency');
 const Country = require('../models/country');
 
+/* The code `router.get('/currency-countryName', async (req, res) => { ... })` is defining a route
+handler for a GET request to the '/currency-countryName' endpoint. */
 router.get('/currency-countryName', async (req, res) => {
   try {
     const currenciesAndCountries = await Currency.findAll({ include: Country });

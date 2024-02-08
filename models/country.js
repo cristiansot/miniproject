@@ -1,6 +1,7 @@
 const sequelize = require('../config/sequelize');
 const { DataTypes } = require('sequelize');
 
+/* This code is defining a Sequelize model for a "country" table in a database. */
 const country = sequelize.define('country', {
   id: {
     type: DataTypes.INTEGER, 

@@ -2,6 +2,8 @@ const { Router } = require('express');
 const router = Router();
 const Currency = require('../models/currency');
 
+/* This code is defining a GET route for the '/currency/' endpoint. When a GET request is made to this
+endpoint, it will execute the callback function. */
 router.get('/currency/', async (req, res) => {
   try {
     const currencies = await Currency.findAll();
@@ -11,6 +13,8 @@ router.get('/currency/', async (req, res) => {
   }
 });
 
+/* This code is defining a GET route for the '/currency/:id' endpoint. When a GET request is made to
+this endpoint with a specific currency ID, it will execute the callback function. */
 router.get('/currency/:id', async (req, res) => {
   const id = req.params.id;
   try {
@@ -27,6 +31,9 @@ router.get('/currency/:id', async (req, res) => {
   }
 });
 
+/* The code `router.post('/currency/', async (req, res) => { ... })` is defining a POST route for the
+'/currency/' endpoint. When a POST request is made to this endpoint, it will execute the callback
+function. */
 router.post('/currency/', async (req, res) => {
   try {
     const currency = await Currency.create({
@@ -40,6 +47,9 @@ router.post('/currency/', async (req, res) => {
   }
 });
 
+/* The code `router.put('/currency/:id', async (req, res) => { ... })` is defining a PUT route for the
+'/currency/:id' endpoint. When a PUT request is made to this endpoint with a specific currency ID,
+it will execute the callback function. */
 router.put('/currency/:id', async (req, res) => {
   const id = Number(req.params.id);
   try {
@@ -55,6 +65,9 @@ router.put('/currency/:id', async (req, res) => {
   }
 });
 
+/* The code `router.delete('/currency/:id', async (req, res) => { ... })` is defining a DELETE route
+for the '/currency/:id' endpoint. When a DELETE request is made to this endpoint with a specific
+currency ID, it will execute the callback function. */
 router.delete('/currency/:id', async (req, res) => {
   const id = Number(req.params.id);
   try {

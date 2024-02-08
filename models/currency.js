@@ -2,6 +2,7 @@ const sequelize = require('../config/sequelize');
 const { DataTypes } = require('sequelize');
 const country = require('../models/country');
 
+/* The code is defining a Sequelize model for a "currency" table in a database. */
 const currency = sequelize.define('currency', {
   id: {
     type: DataTypes.INTEGER, 
@@ -26,6 +27,8 @@ const currency = sequelize.define('currency', {
   }
 })
 
+/* `currency.belongsTo(country, { foreignKey: 'countryId' })` is establishing a foreign key
+relationship between the `currency` model and the `country` model. */
 currency.belongsTo(country, {
   foreignKey: 'countryId'
 })

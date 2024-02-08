@@ -1,5 +1,7 @@
 const { Sequelize } = require('sequelize');
 
+/* The code is creating a new instance of the Sequelize class and assigning it to the constant variable
+`sequelize`. */
 const sequelize = new Sequelize(
 
     process.env.DB_NAME, 
