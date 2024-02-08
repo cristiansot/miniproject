@@ -49,8 +49,8 @@ router.post('/api/currency/', (req, res) => {
   } else {
     newCurrency.id = currencies.length + 1;
     currencies.push(newCurrency);
-    res.status(201).json(newCurrency);
-    console.log('Moneda creada exitosamente.');
+    res.status(201).json(newCurrency)
+    console.log('Currency created successfully.');
   }
 });
 
