@@ -13,6 +13,7 @@ app.use(morgan('tiny'))
 app.use(middlewares.logger);
 app.use(require('./routes/currencyRoute'));
 app.use(require('./routes/countryRoute'));
+app.use(require('./routes/getRoute'));
 app.use(middlewares.unknownMiddleware);
 
 const connect = async () => {
@@ -40,4 +41,5 @@ sequelize
   .catch((error) => {
     console.log('Error creating currency table')
   })
+
 
