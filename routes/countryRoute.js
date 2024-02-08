@@ -15,14 +15,12 @@ router.get('/country/', async(req, res) => {
   
   router.post('/country/', async (req, res) => {
     try {
-     const country = await Country.create({
-       name: req.body.name,
+      const country = await Country.create({
+        name: req.body.name,
       });
-      console.log('Country added');
       res.status(201).json(country);
     } catch (error) {
-      console.log('Error creating currency:', error);
-      return res.status(500).json({ message: error.message });
+      res.status(500).json({ error: error.message });
     }
   });
     
