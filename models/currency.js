@@ -1,8 +1,9 @@
 const sequelize = require('../config/sequelize');
 const { DataTypes, Model } = require('sequelize');
+const Country = require('../models/country')
 
-class currency extends Model {}
-currency.init({
+class Currency extends Model {}
+Currency.init({
   id: {
     type: DataTypes.INTEGER, 
     primaryKey: true,
@@ -16,7 +17,7 @@ currency.init({
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: country,
+      model: Country,
       key: "id"
     }
   },
@@ -31,8 +32,8 @@ currency.init({
   modelName: 'Currency'
 })
 
-currency.belongsTo(country, {
+Currency.belongsTo(Country, {
   foreignKey: 'countryId'
 })
 
-module.exports = currency;
+module.exports = Currency;

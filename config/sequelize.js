@@ -1,28 +1,35 @@
 const { Sequelize } = require('sequelize');
 const pg = require('pg')
 
-const databaseURL = 'postgres://cristian:v3l2K7MsRa53X1Ejg0B6SAKzzil6Jra9@dpg-cmru4pda73kc739h061g-a.oregon-postgres.render.com/miniproject_db'
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '../.env') });
+console.log(__dirname);
 
+
+const databaseURL = `postgres://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/${process.env.DB_NAME}`
+
+console.log(databaseURL)
 const sequelize = new Sequelize(databaseURL, {
+  port: 5432,
   dialectModule: pg,
   dialect: 'postgres',
   dialectOptions: {
     ssl: {
       require: true,
-      rejecUnauthorized: false
+      rejectUnauthorized: false
     }
   }
-})
-    
-const connection = async () => {
+});
+
+const syncDatabase = async () => {
   try {
-    await sequelize.authenticate()
-    console.log('DB connected successfully')
-  } catch(error) {
-    console.log('Unable to connect to DB')
+    await sequelize.sync({ force: false }); 
+    console.log('Database is synced');
+  } catch (error) {
+    console.error('Error syncing database:', error.message);
   }
-}
+};
 
-connection()
+syncDatabase();
 
-module.exports = { sequelize, connection }
+module.exports = sequelize;

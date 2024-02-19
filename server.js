@@ -1,9 +1,11 @@
 const express = require('express')
 const cors = require('cors') 
 const app = express(); 
-const morgan = require ('morgan');
+const morgan = require('morgan');
 
-const { connection } = require('./config/sequelize')
+const currencyRouter = require('./routes/currencyRoute')
+const countryRouter = require('./routes/countryRoute')
+
 
 /* Initializations */
 app.use(cors())
@@ -15,11 +17,15 @@ app.use((req, res, next) => {
   next();
 })
 
+
 /* Middleware */
 app.use(morgan('tiny'))
 
 /* Router */
-app.use(require('./routes/endpoints'));
+app.use('/api/currency', currencyRouter);
+app.use('/api/country', countryRouter);
+// app.use(require('./routes/currencyRouter'));
+// app.use(require('./routes/countryRouter'));
 
 /* Middelware response */
 app.use((req, res, next) => {

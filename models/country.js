@@ -1,8 +1,8 @@
 const sequelize = require('../config/sequelize');
 const { DataTypes, Model } = require('sequelize');
 
-class country extends Model {}
-country.init({
+class Country extends Model {}
+Country.init({
   id: {
     type: DataTypes.INTEGER, 
     primaryKey: true,
@@ -19,4 +19,4 @@ country.init({
   modelName: 'Country'
 })
 
-module.exports = country;
+module.exports = Country;
