@@ -4,13 +4,15 @@ const Country = require('../models/country');
 /* The code `router.get('/country/', async(req, res) => { ... })` is defining a GET route for the
 '/country/' endpoint. When a GET request is made to this endpoint, the code inside the callback
 function will be executed. */
-countryRouter.get('/api/country/', async(req, res) => {
-    Country.findAll()
+countryRouter.get('/country/', async(req, res) => {
+  await Country.findAll()
     .then((country) => {
       res.json(country);
+      console.log('Getting country')
     })
     .catch((error) => {
       console.log(error);
+      console.log('Not get the country')
       return res.status(500).json({ message: error.message });
     });
   })
@@ -18,7 +20,8 @@ countryRouter.get('/api/country/', async(req, res) => {
 /* The code `router.post('/country/', async (req, res) => { ... })` is defining a POST route for the
 '/country/' endpoint. When a POST request is made to this endpoint, the code inside the callback
 function will be executed. */
-countryRouter.post('/api/country/', async (req, res) => {
+
+countryRouter.post('/country/', async (req, res) => {
   try {
     const country = await Country.create({
       name: req.body.name,
@@ -32,7 +35,7 @@ countryRouter.post('/api/country/', async (req, res) => {
 /* The code `router.delete('/country/:id', async (req, res) => { ... })` is defining a DELETE route for
 the '/country/:id' endpoint. When a DELETE request is made to this endpoint with a specific country
 ID, the code inside the callback function will be executed. */
-countryRouter.delete('/api/country/:id', async (req, res) => {
+countryRouter.delete('/country/:id', async (req, res) => {
   const countryId = req.params.id;
 
   try {
