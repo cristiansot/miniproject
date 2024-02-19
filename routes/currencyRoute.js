@@ -38,7 +38,7 @@ currencyRouter.post('/currency/', async (req, res) => {
     const currency = await Currency.create({
       currencyCode: req.body.currencyCode,
       countryId: req.body.countryId,
-      convertionRate: req.body.convertionRate,
+      conversionRate: req.body.conversionRate,
     });
     res.status(201).json(currency);
   } catch (error) {
