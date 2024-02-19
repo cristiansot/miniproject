@@ -4,8 +4,8 @@ const app = express();
 const morgan = require('morgan');
 const Middelware = require('./utils/middlewares')
 
-const currencyRouter = require('./routes/currencyRoute')
-const countryRouter = require('./routes/countryRoute');
+// const currencyRouter = require('./routes/currencyRoute')
+// const countryRouter = require('./routes/countryRoute');
 const sequelize = require('./config/sequelize');
 
 /* Initializations */
@@ -17,8 +17,12 @@ app.use(Middelware.logger);
 app.use(morgan('tiny'))
 
 /* Router */
-app.use('/api/currency', currencyRouter);
-app.use('/api/country', countryRouter);
+// app.use('/api/currency', currencyRouter);
+// app.use('/api/country', countryRouter);
+
+app.use(require('./routes/currencyRoute'));
+app.use(require('./routes/countryRoute'));
+app.use(require('./routes/getRoute'));
 
 /* Middelware response */
 app.use(Middelware.unknownMiddleware)

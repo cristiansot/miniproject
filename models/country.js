@@ -11,7 +11,7 @@ Country.init({
   name: {
     type: DataTypes.STRING,
     allowNull: false
-  }
+  },
 }, {
   sequelize,
   underscored: false,
