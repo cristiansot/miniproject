@@ -1,8 +1,8 @@
 const sequelize = require('../config/sequelize');
-const { DataTypes } = require('sequelize');
+const { DataTypes, Model } = require('sequelize');
 
-/* The code is defining a Sequelize model for a "currency" table in a database. */
-const currencyModel = sequelize.define('currency', {
+class currency extends Model {}
+currency.init({
   id: {
     type: DataTypes.INTEGER, 
     primaryKey: true,
@@ -23,13 +23,16 @@ const currencyModel = sequelize.define('currency', {
   conversionRate: {
     type: DataTypes.INTEGER,
     allowNull: false
-  }
+  },
+}, {
+  sequelize,
+  underscored: false,
+  timestamps: true,
+  modelName: 'Currency'
 })
 
-/* `currency.belongsTo(country, { foreignKey: 'countryId' })` is establishing a foreign key
-relationship between the `currency` model and the `country` model. */
 currency.belongsTo(country, {
   foreignKey: 'countryId'
 })
 
-module.exports = currencyModel;
+module.exports = currency;

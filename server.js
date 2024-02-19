@@ -3,6 +3,8 @@ const cors = require('cors')
 const app = express(); 
 const morgan = require ('morgan');
 
+const { connection } = require('./config/sequelize')
+
 /* Initializations */
 app.use(cors())
 app.use(express.json())
