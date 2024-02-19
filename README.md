@@ -1,6 +1,12 @@
 # miniproject
 My first Full Stack project
 
-# Mini-Project Part 1 Done
+## Doing the miniproject again
 
-# Mini-Project Part 2 Done
+### Assignment 1: Done
+
+### Assignment 2: In progress
+
+### Assignment 3: Pending
+
+### Assignment 4: Pending
