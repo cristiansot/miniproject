@@ -20,7 +20,6 @@ countryRouter.get('/country/', async(req, res) => {
 /* The code `router.post('/country/', async (req, res) => { ... })` is defining a POST route for the
 '/country/' endpoint. When a POST request is made to this endpoint, the code inside the callback
 function will be executed. */
-
 countryRouter.post('/country/', async (req, res) => {
   try {
     const country = await Country.create({
@@ -37,7 +36,6 @@ the '/country/:id' endpoint. When a DELETE request is made to this endpoint with
 ID, the code inside the callback function will be executed. */
 countryRouter.delete('/country/:id', async (req, res) => {
   const countryId = req.params.id;
-
   try {
     await Country.destroy({ where: { id: countryId } });
     res.status(204).send('Country deleted successfully');

@@ -5,8 +5,7 @@ Country.sync().then(() => {
 
     Country.bulkCreate([
         { name: 'Canada'},
-        { name: 'USA' }, 
-        { name: 'Chile' } 
+        { name: 'USA' },
     ]).then(() => {
         console.log('Countries created');
     }).catch((error) => { 
