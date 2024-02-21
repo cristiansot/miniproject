@@ -13,12 +13,6 @@ let currencies = [
 		currencyCode: "USD",
 		country: "United States of America",
 		conversionRate: 0.75
-	},
-	{
-		id: 3,
-		currencyCode: "CLP",
-		country: "Chile",
-		conversionRate: 152
 	}
 ]
 
@@ -27,7 +21,7 @@ router.get('/', (req, res) => {
 })
   
 router.get('/api/currency/', (req, res) => {
-	res.json(currencies)
+	res.json(currencies);
   console.log('Showing currencies')
 })
   
@@ -35,8 +29,10 @@ router.get('/api/currency/:id', (req, res) => {
 	const id = Number(req.params.id);
 	const currencyId = currencies.find(currency => currency.id === id); 
 	if (currencyId) { 
+    console.log('Got currency successfully')
 		res.json(currencyId);
 	} else if (currencyId !== id){
+    console.log('Currency not found')
 		res.status(404).json({ error: 'Resource not found' });
 	} 
 })
@@ -54,16 +50,16 @@ router.post('/api/currency/', (req, res) => {
   }
 });
 
-router.put('/api/currency/:id', (req, res) => {
-  const id = Number(req.params.id);
-  const newRate = currencies.find(currency => currency.id === id);
-  if (newRate) {
-    newRate.currencyCode = req.body.currencyCode;
-    newRate.country = req.body.country;
-    newRate.conversionRate = req.body.conversionRate;
-    res.status(201).json(newRate);
+router.put('/api/currency/:id/', (req, res) => {
+  const currencyId = Number(req.params.id); 
+  const newConversionRate = req.body.conversionRate; 
+  const matchId = currencies.find(currency => currency.id === currencyId);
+  
+  if (matchId) {
+    matchId.conversionRate = newConversionRate;
+    res.status(200).json(matchId);
   } else {
-    res.sendStatus(500).json({ message: error.message});
+    res.status(404).json({ message: 'Id not found' });
   }
 });
 
@@ -72,10 +68,8 @@ router.delete('/api/currency/:id', (req, res) => {
 	const initialLength = currencies.length;
 	currencies = currencies.filter(currency => currency.id !== id);
 	if (currencies.length < initialLength) {
-	  console.log('Currency deleted');
-	  res.status(201).send({ message: 'Currency deleted' });
+	  res.status(200).send({ message: 'Currency deleted', id });
 	} else {
-	  console.log('Currency not found');
 	  res.status(404).send({ message: 'Currency not found' });
 	}
 });

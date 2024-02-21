@@ -13,7 +13,11 @@ app.use((req, res, next) => {
   next();
 })
 
-/* Middleware */
+morgan.token('req-body', (req) => JSON.stringify(req.body));
+
+/* Middleware morgan*/
+// app.use(morgan(':method :url :status :req-body :res[content-length] - :response-time ms :date[web]'))
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :req-body'));
 app.use(morgan('tiny'))
 
 /* Router */
