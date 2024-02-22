@@ -14,11 +14,13 @@ app.use(express.json())
 
 /* Middelware request */
 app.use(Middelware.logger);
-app.use(morgan('tiny'))
 
-/* Router */
-// app.use('/api/currency', currencyRouter);
-// app.use('/api/country', countryRouter);
+morgan.token('req-body', (req) => JSON.stringify(req.body));
+
+/* Middleware morgan*/
+// app.use(morgan(':method :url :status :req-body :res[content-length] - :response-time ms :date[web]'))
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :req-body'));
+app.use(morgan('tiny'))
 
 app.use(require('./routes/currencyRoute'));
 app.use(require('./routes/countryRoute'));
