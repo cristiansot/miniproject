@@ -2,7 +2,7 @@ const express = require('express')
 const cors = require('cors') 
 const app = express(); 
 const morgan = require('morgan');
-const Middelware = require('./utils/middlewares')
+const Middleware = require('./utils/middlewares')
 
 // const currencyRouter = require('./routes/currencyRoute')
 // const countryRouter = require('./routes/countryRoute');
@@ -13,7 +13,7 @@ app.use(cors())
 app.use(express.json())
 
 /* Middelware request */
-app.use(Middelware.logger);
+app.use(Middleware.logger);
 app.use(morgan('tiny'))
 
 /* Middleware morgan*/
@@ -27,7 +27,7 @@ app.use(require('./routes/countryRoute'));
 app.use(require('./routes/getRoute'));
 
 /* Middelware response */
-app.use(Middelware.unknownMiddleware)
+app.use(Middleware.unknownMiddleware)
 
 //Port connection
 PORT = process.env.PORT
