@@ -2,7 +2,7 @@ const express = require('express')
 const cors = require('cors') 
 const app = express(); 
 const morgan = require('morgan');
-const Middelware = require('./utils/middlewares')
+const Middleware = require('./utils/middlewares')
 
 // const currencyRouter = require('./routes/currencyRoute')
 // const countryRouter = require('./routes/countryRoute');
@@ -13,21 +13,21 @@ app.use(cors())
 app.use(express.json())
 
 /* Middelware request */
-app.use(Middelware.logger);
-
-morgan.token('req-body', (req) => JSON.stringify(req.body));
+app.use(Middleware.logger);
+app.use(morgan('tiny'))
 
 /* Middleware morgan*/
-// app.use(morgan(':method :url :status :req-body :res[content-length] - :response-time ms :date[web]'))
+morgan.token('req-body', (req) => JSON.stringify(req.body));
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :req-body'));
 app.use(morgan('tiny'))
 
+/* Router */
 app.use(require('./routes/currencyRoute'));
 app.use(require('./routes/countryRoute'));
 app.use(require('./routes/getRoute'));
 
 /* Middelware response */
-app.use(Middelware.unknownMiddleware)
+app.use(Middleware.unknownMiddleware)
 
 //Port connection
 PORT = process.env.PORT
