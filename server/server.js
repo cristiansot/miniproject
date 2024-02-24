@@ -3,9 +3,6 @@ const cors = require('cors')
 const app = express(); 
 const morgan = require('morgan');
 const Middleware = require('./utils/middlewares')
-
-// const currencyRouter = require('./routes/currencyRoute')
-// const countryRouter = require('./routes/countryRoute');
 const sequelize = require('./config/sequelize');
 
 /* Initializations */
@@ -14,7 +11,6 @@ app.use(express.json())
 
 /* Middelware request */
 app.use(Middleware.logger);
-app.use(morgan('tiny'))
 
 /* Middleware morgan*/
 morgan.token('req-body', (req) => JSON.stringify(req.body));

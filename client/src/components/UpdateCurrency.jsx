@@ -17,9 +17,10 @@ const schema = Yup.object({
 const updateCurrency = () => {
 
   const send = async (values, { resetForm }) => {
+    values.currencyCode = values.currencyCode.toUpperCase();
 
     try {
-      const response = await axios.put('http://localhost:3001/api/currency/', values);
+      const response = await axios.put('http://localhost:3008/currency/', values);
       console.log('Response:', response.data);
       alert('Currency Updated')
       resetForm(); 

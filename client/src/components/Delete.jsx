@@ -20,13 +20,14 @@ const DeleteCurrency = () => {
   const send = async (values, { resetForm }) => {
     try {
       values.currencyCode = values.currencyCode.toUpperCase();
-      const response = await axios.delete('http://localhost:3001/api/currency/', { data: values });
+      const response = delete('http://localhost:3008/currency/', values);
+      console.log(response);
       console.log('Response:', response.data);
       alert('Currency Deleted');
       resetForm(); 
     } catch (error) {
       console.error('Error:', error);
-    }
+    } 
   };
 
   const { handleSubmit, handleChange, errors, values } = useFormik({

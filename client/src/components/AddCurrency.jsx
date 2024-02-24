@@ -23,16 +23,20 @@ const AddCurrency = () => {
  * successful.
  */
   const send = async (values, { resetForm }) => {
+    console.log('Sending request with values:', values);
+    console.log('Values:', values);
+
 
     try {
       values.currencyCode = values.currencyCode.toUpperCase();
-      const response = await axios.post('http://localhost:3001/api/currency/', values);
+      const response = await axios.post('http://localhost:3001/currency/', values);
       console.log('Response:', response.data);
       alert('Currency Added Successfully');
       resetForm(); 
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Error:', error.message);
     }
+    console.log('Values before sending request:', values);
   };
   
  /* The code `const { handleSubmit, handleChange, errors, values } = useFormik({ ... })` is using the
