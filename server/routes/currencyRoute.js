@@ -51,21 +51,23 @@ currencyRouter.post('/currency', async (req, res) => {
 });
 
 /**
- * @receives a PUT request to the URL: http://localhost:3001/currency/:id
+ * @receives a PUT request to the URL: http://localhost:3001/currency/:id/
  * @returns an appropriate status code
  */
-currencyRouter.put('/currency/:id', async (req, res) => {
-    const currencyCode = req.params.currencyCode;
-    const newConversionRate = req.params.conversionRate;
-    try {
-      const newRate = await Currency.map((Currency) => {
-       if(Currency.currencyCode === currencyCode ) {
-        return {
-          ...Currency,
-          conversionRate: Currency.conversionRate = newConversionRate
-        }
-      } res.status(200).json(newRate);
-    });
+currencyRouter.put('/currency/', async (req, res) => {
+  const currencyCode = req.params.currencyCode; 
+  const newRate = req.body.conversionRate;
+
+  try {
+    const currency = await Currency.findOne({ currencyCode });
+
+    if (currency) {
+      currency.conversionRate = newRate;
+      await currency.save();
+      res.status(200).json(currency); 
+    } else {
+      res.status(404).json({ error: "Currency not found" });
+    }
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

@@ -17,10 +17,10 @@ const App = () => {
       <Login />
       <Convert />
       <AddCurrency getData={getData} />
-      <UpdateCurrency />
+      <UpdateCurrency getData={getData} />
       <Delete />
 
-      <div>
+      <div className="showData">
         {JSON.stringify(formData)}
       </div>
     

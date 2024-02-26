@@ -10,7 +10,7 @@ POST http://localhost:3001/currency/
 
 ###
 
-PUT http://localhost:3001/currency/:id/:newRate
+PUT http://localhost:3001/currency/:id
 
 ###
 
