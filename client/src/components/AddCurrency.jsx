@@ -1,7 +1,7 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import axios from 'axios'; 
+import axios from 'axios';
 
 /* I watched validation videos and connect with API rest on => https://www.youtube.com/watch?v=AD6m5c75OT0&ab_channel=YaelmoDev */
 /* https://www.youtube.com/watch?v=J9SUU_6KD1w&ab_channel=CoderOne */
@@ -10,33 +10,37 @@ import axios from 'axios';
 validation rules for the form fields in the `AddCurrency` component. */
 const schema = Yup.object({
   currencyCode: Yup.string().required('Required'),
-  currencyId: Yup.number().required('Required'),
+  countryId: Yup.number().required('Required'),
   conversionRate: Yup.number().required('Required'),
 });
 
+
 /* The line `const AddCurrency = () => {` is defining a functional component named `AddCurrency`. This
 component is written in arrow function syntax. */
-const AddCurrency = () => {
+const AddCurrency = ({ getData }) => {
 
 /**
  * The function sends a POST request to add a currency to a server and displays a success message if
  * successful.
  */
-  const send = async (values, { resetForm }) => {
-    console.log('Sending request with values:', values);
-    console.log('Values:', values);
+  
+  const send = (values, { resetForm }) => {
+    // console.log('Sending request with values:', values);
+    // console.log('Values:', values);
 
-
-    try {
-      values.currencyCode = values.currencyCode.toUpperCase();
-      const response = await axios.post('http://localhost:3001/currency/', values);
-      console.log('Response:', response.data);
-      alert('Currency Added Successfully');
-      resetForm(); 
-    } catch (error) {
-      console.error('Error:', error.message);
-    }
-    console.log('Values before sending request:', values);
+      // values.currencyCode = values.currencyCode.toUpperCase();
+      axios.post('http://localhost:3001/currency', values)
+      .then(function (response) {
+        // console.log(response);
+        alert('Currency Added Successfully');
+        getData(values);
+        console.log(response);
+        resetForm(); 
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+    // console.log('Values before sending request:', values);
   };
   
  /* The code `const { handleSubmit, handleChange, errors, values } = useFormik({ ... })` is using the
@@ -44,7 +48,7 @@ const AddCurrency = () => {
   const { handleSubmit, handleChange, errors, values } = useFormik({
     initialValues: {
       currencyCode: '',
-      currencyId: '',
+      countryId: '',
       conversionRate: ''
     },
     validationSchema: schema,
@@ -59,10 +63,10 @@ const AddCurrency = () => {
       <form onSubmit={handleSubmit}>
         <div className='gridInputs'>
           <input className='inputAdd' type="text" placeholder='Currency Code' name='currencyCode' value={values.currencyCode} onChange={handleChange} />
-          <input className='inputAdd' type="number" placeholder='Currency ID' name='currencyId' value={values.currencyId} onChange={handleChange} />
+          <input className='inputAdd' type="number" placeholder='Country ID' name='countryId' value={values.countryId} onChange={handleChange} />
           <input className='inputAdd' type="number" placeholder='Conversion Rate' name='conversionRate' value={values.conversionRate} onChange={handleChange} />
           <div>{errors.currencyCode && <span>{errors.currencyCode}</span>}</div>
-          <div>{errors.currencyId && <span>{errors.currencyId}</span>}</div>
+          <div>{errors.countryId && <span>{errors.countryId}</span>}</div>
           <div>{errors.conversionRate && <span>{errors.conversionRate}</span>}</div>
         </div> 
         

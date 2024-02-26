@@ -1,8 +1,10 @@
 const currencyRouter = require('express').Router();
 const Currency = require('../models/currency');
 
-/* This code is defining a GET route for the '/currency/' endpoint. When a GET request is made to this
-endpoint, it will execute the callback function. */
+/**
+ * @receives a request to the URL: http://localhost:3001/currency
+ * @returns currency list as a JSON
+ */
 currencyRouter.get('/currency/', async (req, res) => {
   try {
     const currencies = await Currency.findAll();
@@ -12,8 +14,10 @@ currencyRouter.get('/currency/', async (req, res) => {
   }
 });
 
-/* This code is defining a GET route for the '/currency/:id' endpoint. When a GET request is made to
-this endpoint with a specific currency ID, it will execute the callback function. */
+/**
+ * @receives a GET:id request to the URL: http://localhost:3001/currency/:id
+ * @returns a specific currency (entry)
+ */
 currencyRouter.get('/currency/:id', async (req, res) => {
   const id = req.params.id;
   try {
@@ -30,26 +34,26 @@ currencyRouter.get('/currency/:id', async (req, res) => {
   }
 });
 
-/* The code `router.post('/currency/', async (req, res) => { ... })` is defining a POST route for the
-'/currency/' endpoint. When a POST request is made to this endpoint, it will execute the callback
-function. */
+/**
+ * @receives a POST request to the URL: http://localhost:3001/currency
+ * @returns the newly created currency 
+ */
 currencyRouter.post('/currency', async (req, res) => {
+  console.log('entry data', req.body)
   try {
-    const currency = await Currency.create({
-      currencyCode: req.body.currencyCode,
-      countryId: req.body.countryId,
-      conversionRate: req.body.conversionRate,
-    }); 
-
+    const currency = await Currency.create((req.body)
+  );
     res.status(201).json(currency);
   } catch (error) {
+    console.log('Error from Frontend')
     res.status(500).json({ error: error.message });
   }
 });
 
-/* The code `router.put('/currency/:id', async (req, res) => { ... })` is defining a PUT route for the
-'/currency/:id' endpoint. When a PUT request is made to this endpoint with a specific currency ID,
-it will execute the callback function. */
+/**
+ * @receives a PUT request to the URL: http://localhost:3001/currency/:id
+ * @returns an appropriate status code
+ */
 currencyRouter.put('/currency/:id', async (req, res) => {
     const currencyCode = req.params.currencyCode;
     const newConversionRate = req.params.conversionRate;
@@ -67,10 +71,10 @@ currencyRouter.put('/currency/:id', async (req, res) => {
   }
 });
 
-/* The code `router.delete('/currency/:id', async (req, res) => { ... })` is defining a DELETE route
-for the '/currency/:id' endpoint. When a DELETE request is made to this endpoint with a specific
-currency ID, it will execute the callback function. */
-
+/**
+ * @receives a DELETE request to the URL: http://localhost:3001/currency/:id
+ * @returns an appropriate status code
+ */
 currencyRouter.delete('/currency/', async (req, res) => {
   const currencyCode = req.params.currencyCode;
   try {
