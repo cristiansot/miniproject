@@ -23,9 +23,9 @@ const UpdateCurrency = ({ getData }) => {
  * successful.
  */
   
-  const send = async (values, { resetForm }) => {
+  const send = (values, { resetForm }) => {
     // values.currencyCode = values.currencyCode.toUpperCase();
-    await axios.put('http://localhost:3001/currency', values)
+    axios.put('http://localhost:3001/currency', values)
     .then(function (response) {
       // console.log(response);
       alert('Currency Updated Successfully');

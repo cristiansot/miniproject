@@ -1,10 +1,8 @@
 const currencyRouter = require('express').Router();
 const Currency = require('../models/currency');
 
-/**
- * @receives a request to the URL: http://localhost:3001/currency
- * @returns currency list as a JSON
- */
+/* This code is defining a GET route for the '/currency/' endpoint. When a GET request is made to this
+endpoint, it will execute the callback function. */
 currencyRouter.get('/currency/', async (req, res) => {
   try {
     const currencies = await Currency.findAll();
@@ -14,10 +12,8 @@ currencyRouter.get('/currency/', async (req, res) => {
   }
 });
 
-/**
- * @receives a GET:id request to the URL: http://localhost:3001/currency/:id
- * @returns a specific currency (entry)
- */
+/* This code is defining a GET route for the '/currency/:id' endpoint. When a GET request is made to
+this endpoint with a specific currency ID, it will execute the callback function. */
 currencyRouter.get('/currency/:id', async (req, res) => {
   const id = req.params.id;
   try {
@@ -34,37 +30,32 @@ currencyRouter.get('/currency/:id', async (req, res) => {
   }
 });
 
-/**
- * @receives a POST request to the URL: http://localhost:3001/currency
- * @returns the newly created currency 
- */
-currencyRouter.post('/currency', async (req, res) => {
-  console.log('entry data', req.body)
+/* The code `router.post('/currency/', async (req, res) => { ... })` is defining a POST route for the
+'/currency/' endpoint. When a POST request is made to this endpoint, it will execute the callback
+function. */
+currencyRouter.post('/currency/', async (req, res) => {
   try {
-    const currency = await Currency.create((req.body)
-  );
+    const currency = await Currency.create({
+      currencyCode: req.body.currencyCode,
+      countryId: req.body.countryId,
+      conversionRate: req.body.conversionRate,
+    });
     res.status(201).json(currency);
   } catch (error) {
-    console.log('Error from Frontend')
     res.status(500).json({ error: error.message });
   }
 });
 
-/**
- * @receives a PUT request to the URL: http://localhost:3001/currency/:id/
- * @returns an appropriate status code
- */
-currencyRouter.put('/currency/', async (req, res) => {
-  const currencyCode = req.params.currencyCode; 
-  const newRate = req.body.conversionRate;
-
+/* The code `router.put('/currency/:id', async (req, res) => { ... })` is defining a PUT route for the
+'/currency/:id' endpoint. When a PUT request is made to this endpoint with a specific currency ID,
+it will execute the callback function. */
+currencyRouter.put('/currency/:id', async (req, res) => {
+  const id = Number(req.params.id);
   try {
-    const currency = await Currency.findOne({ currencyCode });
-
+    const currency = await Currency.findByPk(id);
     if (currency) {
-      currency.conversionRate = newRate;
-      await currency.save();
-      res.status(200).json(currency); 
+      await currency.update(req.body);
+      res.json(currency);
     } else {
       res.status(404).json({ error: "Currency not found" });
     }
@@ -73,16 +64,15 @@ currencyRouter.put('/currency/', async (req, res) => {
   }
 });
 
-/**
- * @receives a DELETE request to the URL: http://localhost:3001/currency/:id
- * @returns an appropriate status code
- */
-currencyRouter.delete('/currency/', async (req, res) => {
-  const currencyCode = req.params.currencyCode;
+/* The code `router.delete('/currency/:id', async (req, res) => { ... })` is defining a DELETE route
+for the '/currency/:id' endpoint. When a DELETE request is made to this endpoint with a specific
+currency ID, it will execute the callback function. */
+currencyRouter.delete('/currency/:id', async (req, res) => {
+  const id = Number(req.params.id);
   try {
-    const currency = await Currency.filter(Currency => Currency.currencyCode === currencyCode);
+    const currency = await Currency.findByPk(id);
     if (currency) {
-      currency.destroy();
+      await currency.destroy();
       res.status(204).json({ message: "Currency deleted successfully" });
     } else {
       res.status(404).json({ error: "Currency not found" });
@@ -91,21 +81,5 @@ currencyRouter.delete('/currency/', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-
-
-// currencyRouter.delete('/currency/:id', async (req, res) => {
-//   const id = Number(req.params.id);
-//   try {
-//     const currency = await Currency.findByPk(id);
-//     if (currency) {
-//       await currency.destroy();
-//       res.status(204).json({ message: "Currency deleted successfully" });
-//     } else {
-//       res.status(404).json({ error: "Currency not found" });
-//     }
-//   } catch (error) {
-//     res.status(500).json({ error: error.message });
-//   }
-// });
 
 module.exports = currencyRouter;

@@ -1,13 +1,13 @@
 const Country = require('./models/country')
 const Currency = require('./models/currency')
 
-Country.sync({ force: true }).then(() => {
+Country.sync().then(() => {
     console.log('Country tables created');
 
     Country.bulkCreate([
         { name: 'Canada', countryId: 1},
-        { name: 'USA', countryId: 2 },
-        { name: 'CLP', countryId: 3 }
+        { name: 'United States', countryId: 2 },
+        { name: 'Chile', countryId: 3 }
     ]).then(() => {
         console.log('Countries created');
     }).catch((error) => { 
@@ -18,7 +18,7 @@ Country.sync({ force: true }).then(() => {
 });
 
 
-Currency.sync({ force: true }).then(() => {
+Currency.sync().then(() => {
     console.log('Country tables created');
 
     Currency.bulkCreate([

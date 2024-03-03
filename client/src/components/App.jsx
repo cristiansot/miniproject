@@ -1,15 +1,50 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Login from "./Login.jsx";
-import Convert from "./Convert.jsx"
+import Convert from "./Convert.jsx";
 import AddCurrency from "./AddCurrency.jsx";
-import UpdateCurrency from "./UpdateCurrency.jsx"
-import Delete from "./Delete.jsx";
+import UpdateCurrency from "./UpdateCurrency.jsx";
+import DeleteCurrency from "./Delete.jsx";
+import axios from "axios";
+
+const baseURL = "http://localhost:3001/currency";
 
 const App = () => {
-  const [formData, setFormData] = useState();
+  const [post, setPost] = useState([]);
 
+/* Tasneem and Aleem helped me solve and understand how to show
+** get data in the frontend and thus be able to capture the ID 
+** and send it to the endpoints on the server.
+*/
   const getData = (data) => {
-    setFormData(data); // Guarda los datos en el estado formData
+    setFormData(data);
+  };
+
+  useEffect(() => {
+    axios.get(baseURL)
+      .then((response) => {
+        setPost(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error("Error", error);
+      });
+  }, []);
+
+  // I tried to do this part work with .map, but it could not
+  const handleDelete = (currencyCode) => {
+    const foundCurrency = post.find((currency) => currency.currencyCode === currencyCode);
+    if (foundCurrency) {
+      const dataToSend = { id: foundCurrency.id };
+      axios.delete(`${baseURL}/${dataToSend.id}`)
+        .then((response) => {
+          console.log("ID deleted successfully:", response.data);
+        })
+        .catch((error) => {
+          console.error("Error deleting ID:", error);
+        });
+    } else {
+      console.error("Currency not found");
+    }
   };
 
   return (
@@ -18,12 +53,7 @@ const App = () => {
       <Convert />
       <AddCurrency getData={getData} />
       <UpdateCurrency getData={getData} />
-      <Delete />
-
-      <div className="showData">
-        {JSON.stringify(formData)}
-      </div>
-    
+      <DeleteCurrency onDelete={handleDelete} />
     </div>
   );
 };
