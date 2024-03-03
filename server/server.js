@@ -28,7 +28,7 @@ app.use(Middleware.unknownMiddleware)
 //Port connection
 PORT = process.env.PORT
 sequelize
-  .sync()
+  .sync({force: false})
   .then(() => {
     app.listen(PORT, () => {
     console.log(`Server running on port: ${PORT}`)

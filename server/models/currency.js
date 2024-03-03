@@ -18,7 +18,7 @@ Currency.init({
     allowNull: false,
     references: {
       model: Country,
-      key: "id"
+      key: 'id',
     }
   },
   conversionRate: {
@@ -28,12 +28,13 @@ Currency.init({
 }, {
   sequelize,
   underscored: false,
-  timestamps: true,
+  timestamps: false,
   modelName: 'Currency'
 })
 
 Currency.belongsTo(Country, {
-  foreignKey: 'countryId'
+  foreignKey: 'countryId',
+  onDelete: 'CASCADE'
 })
 
 module.exports = Currency;
