@@ -1,65 +1,31 @@
-import React from 'react';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import axios from 'axios';
+import React, { useState } from "react";
 
-/* I watched validation videos and connect with API rest on => https://www.youtube.com/watch?v=AD6m5c75OT0&ab_channel=YaelmoDev */
-/* https://www.youtube.com/watch?v=J9SUU_6KD1w&ab_channel=CoderOne */
+const UpdateCurrency = ({ onUpdate }) => {
+    const [currencyCode, setCurrencyCode] = useState("");
+    const [conversionRate, setConversionRate] = useState("");
 
-/* The `const schema` is defining a validation schema using the Yup library. It specifies the
-validation rules for the form fields in the `AddCurrency` component. */
-const schema = Yup.object({
-  currencyCode: Yup.string().required('Required'),
-  conversionRate: Yup.number().required('Required'),
-});
+    const handleSubmit = (event) => {
+      event.preventDefault();
+      onUpdate(currencyCode.toUpperCase(), conversionRate);
+      setCurrencyCode("");
+      setConversionRate("");
+    };
 
-
-/* The line `const AddCurrency = () => {` is defining a functional component named `AddCurrency`. This
-component is written in arrow function syntax. */
-const UpdateCurrency = ({ getData }) => {
-
-/**
- * The function sends a POST request to add a currency to a server and displays a success message if
- * successful.
- */
-  
-  const send = (values, { resetForm }) => {
-    // values.currencyCode = values.currencyCode.toUpperCase();
-    axios.put('http://localhost:3001/currency', values)
-    .then(function (response) {
-      // console.log(response);
-      alert('Currency Updated Successfully');
-      getData(values);
-      console.log(response);
-      resetForm(); 
-    })
-    .catch(function (error) {
-      console.log(error);
-    })
+  const handleChange = (event) => {
+    setCurrencyCode(event.target.value);
   };
-  
- /* The code `const { handleSubmit, handleChange, errors, values } = useFormik({ ... })` is using the
- `useFormik` hook from the Formik library to handle form state, validation, and submission. */
-  const { handleSubmit, handleChange, errors, values } = useFormik({
-    initialValues: {
-      currencyCode: '',
-      conversionRate: ''
-    },
-    validationSchema: schema,
-    onSubmit: send,
-  });
 
-  /* The `return` statement in the code is rendering the JSX (JavaScript XML) code that represents the
-  form for adding a currency. */
+  const handleChangeAmount = (event) => {
+    setConversionRate(event.target.value)
+  };
+
   return (
     <div>
       <h1>Update Currency</h1>
       <form onSubmit={handleSubmit}>
         <div className='updateGridInputs'>
-          <input className='inputUpdate' type="text" placeholder='Currency Code' name='currencyCode' value={values.currencyCode} onChange={handleChange} />
-          <input className='inputUpdate' type="number" placeholder='Amount' name='conversionRate' value={values.conversionRate} onChange={handleChange} />
-          <div>{errors.currencyCode && <span>{errors.currencyCode}</span>}</div>
-          <div>{errors.conversionRate && <span>{errors.conversionRate}</span>}</div>
+          <input className='inputUpdate' type="text" placeholder='Currency Code' value={currencyCode} onChange={handleChange} />
+          <input className='inputUpdate' type="number" placeholder='Amount' value={conversionRate} onChange={handleChangeAmount} />
         </div> 
         
         <div className='contentBtns'>

@@ -37,10 +37,28 @@ const App = () => {
       const dataToSend = { id: foundCurrency.id };
       axios.delete(`${baseURL}/${dataToSend.id}`)
         .then((response) => {
-          console.log("ID deleted successfully:", response.data);
+          console.log("ID " + `${dataToSend.id}` + " deleted successfully", response.data);
         })
         .catch((error) => {
           console.error("Error deleting ID:", error);
+        });
+    } else {
+      console.error("Currency not found");
+    }
+  };
+
+  const handleUpdate = (currencyCode, conversionRate) => {
+    console.log("Currency code to update:", currencyCode, conversionRate);
+    const foundCurrency = post.find((currency) => currency.currencyCode === currencyCode);
+  
+    if (foundCurrency) {
+      const dataToSend = { id: foundCurrency.id, conversionRate: conversionRate };
+        axios.put(`${baseURL}/${dataToSend.id}`, dataToSend)
+        .then((response) => {
+          console.log("Currency " + currencyCode + " Updated successfully:", response.data);
+        })
+        .catch((error) => {
+          console.error("Error trying to update Currency:", error);
         });
     } else {
       console.error("Currency not found");
@@ -52,7 +70,7 @@ const App = () => {
       <Login />
       <Convert />
       <AddCurrency getData={getData} />
-      <UpdateCurrency getData={getData} />
+      <UpdateCurrency onUpdate={handleUpdate} />
       <DeleteCurrency onDelete={handleDelete} />
     </div>
   );
