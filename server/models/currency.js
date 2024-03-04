@@ -34,7 +34,8 @@ Currency.init({
 
 Currency.belongsTo(Country, {
   foreignKey: 'countryId',
-  onDelete: 'CASCADE'
+  onDelete: 'CASCADE',
+  hooks: true, // I found the solution ---> https://github.com/sequelize/sequelize/issues/8444
 })
 
 module.exports = Currency;
