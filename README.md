@@ -5,8 +5,10 @@ My first Full Stack project
 
 ### Assignment 1: Done
 
-### Assignment 2: In progress
+### Assignment 2: Done
 
-### Assignment 3: Pending
+### Assignment 3: Done
 
 ### Assignment 4: Pending
+
+### Assignment 5: Pending
