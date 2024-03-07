@@ -26,8 +26,8 @@ app.use(require('./routes/getRoute'));
 app.use(Middleware.unknownMiddleware)
 
 //Port connection
-PORT = process.env.PORT
-sequelize
+const PORT = process.env.PORT
+const server = sequelize
   .sync({force: false})
   .then(() => {
     app.listen(PORT, () => {
@@ -37,3 +37,5 @@ sequelize
 .catch((error) => {
   console.error('Error in syncing the Database:', error)
 });
+
+module.exports = server
