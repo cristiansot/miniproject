@@ -1,4 +1,4 @@
-const convertCurrency = require('./currency_utils');
+const convertCurrency = require('../utils/currency_utils');
 
 /**
  * The tests below will be based on the following conversion amounts,
