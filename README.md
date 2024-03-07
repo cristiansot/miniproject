@@ -9,6 +9,6 @@ My first Full Stack project
 
 ### Assignment 3: Done
 
-### Assignment 4: Pending / ready for to start
+### Assignment 4: Starting
 
 ### Assignment 5: Pending
