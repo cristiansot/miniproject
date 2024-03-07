@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
 const UpdateCurrency = ({ onUpdate }) => {
-    const [currencyCode, setCurrencyCode] = useState("");
-    const [conversionRate, setConversionRate] = useState("");
+  const [currencyCode, setCurrencyCode] = useState("");
+  const [conversionRate, setConversionRate] = useState("");
 
     const handleSubmit = (event) => {
       event.preventDefault();

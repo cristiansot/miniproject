@@ -15,31 +15,45 @@
         }
  *******       
  * Necessary import:
- */
-import "@testing-library/jest-dom";
-import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-/**
- * Import all the related component(s) here:
- * 
- * 
- */
-
-/**
- * we will test the conversion section that contains: currency code & amount input fields, 
- *   Convert button and converted amount text. 
- * You need to do write one unit test that ensure the functionality of the section is working as intended.
- * We need to test that the user will be able to type into the input fields then click the Convert button.
- * Once the button is clicked, the conversion amount should be displayed on the screen.
- */
-
-
-test('Testing conversion section', () => {
-    // convertCurrency is a mock function now
-    const convertCurrency = jest.fn();
-    const user = userEvent.setup();
-
-    // Your code here
-});
-
-
+ */ 
+ import "@testing-library/jest-dom";
+ import { render, screen } from "@testing-library/react";
+ import userEvent from "@testing-library/user-event";
+ import Convert from "../components/Convert";
+ 
+ /**
+  * we will test the conversion section that contains: currency code & amount input fields, 
+  *   Convert button and converted amount text. 
+  * You need to do write one unit test that ensure the functionality of the section is working as intended.
+  * We need to test that the user will be able to type into the input fields then click the Convert button.
+  * Once the button is clicked, the conversion amount should be displayed on the screen.
+  */
+ 
+ test('Testing currency convert from CDN to USD', async () => {
+   // convertCurrency is a mock function now
+   const convertCurrency = jest.fn();
+   console.log = jest.fn();
+   alert = jest.fn();
+   const user = userEvent.setup();
+ 
+   render(<Convert sendFunction={convertCurrency} />);
+ 
+   const currencyFromInput = screen.getByPlaceholderText('Currency From');
+   const currencyToInput = screen.getByPlaceholderText('Currency To');
+   const amountInput = screen.getByPlaceholderText('Amount');
+   const convertButton = screen.getByRole('button');
+ 
+   await user.type(currencyFromInput, 'CDN');
+   await user.type(currencyToInput, 'USD');
+   await user.type(amountInput, '100');
+   await user.click(convertButton);
+ 
+   expect(currencyFromInput.value).toBe('CDN');
+   expect(currencyToInput.value).toBe('USD');
+   expect(amountInput.value).toBe('100');
+ 
+   expect(convertCurrency.mock.calls).toHaveLength(1);
+   expect(console.log).toHaveBeenCalledWith('Amount converted', 75);
+   expect(alert).toHaveBeenCalledWith('Currency Converted Successfully');
+ });
+ 
