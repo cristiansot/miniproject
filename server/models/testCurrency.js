@@ -1,8 +1,7 @@
 const sequelize = require('../config/sequelize');
 const { DataTypes, Model } = require('sequelize');
-const Country = require('../models/country')
 
-class Currency extends Model {}
+class testCurrency extends Model {}
 Currency.init({
   id: {
     type: DataTypes.INTEGER, 
@@ -13,14 +12,6 @@ Currency.init({
     type: DataTypes.STRING,
     allowNull: false
   },
-  countryId: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      model: Country,
-      key: 'id',
-    }
-  },
   conversionRate: {
     type: DataTypes.INTEGER,
     allowNull: false
@@ -29,13 +20,7 @@ Currency.init({
   sequelize,
   underscored: false,
   timestamps: false,
-  modelName: 'Currency'
+  modelName: 'testCurrency'
 })
 
-Currency.belongsTo(Country, {
-  foreignKey: 'countryId',
-  onDelete: 'CASCADE',
-  hooks: true,
-})
-
-module.exports = Currency;
+module.exports = testCurrency;
